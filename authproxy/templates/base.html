@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	<script src="{{ url_for('static', filename='script.js') }}"></script>
+	<title>{% block title %}{% endblock %}</title>
+</head>
+<body><div id="outerWrapper">
+	<header>
+{%- if not mainPage %}
+	<nav>
+	    <a href="{{ url_for('frontend.index') }}">Main Page</a>
+	</nav>
+{%- endif %}
+	</header>
+{%- with messages = get_flashed_messages() -%}
+{%- if messages %}
+	<section id="message">
+		{%- for message in messages %}
+		{{ message }}<br>
+		{%- endfor %}
+	</section>
+{%- endif -%}
+{%- endwith %}
+	<div id="contentWrapper">
+	<section id="content">
+{%- block content %}{% endblock %}
+	</section>
+	</div>
+	<footer></footer>
+</div></body>
+</html>

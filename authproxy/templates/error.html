@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ error_code|safe }} {{ error_name|safe }}{% endblock %}
+{% block content %}
+	<h1>{% block name %}{{ error_name|safe }}{% endblock %}</h1>
+	{% block desc %}{{ error_description|safe }}{% endblock %}
+{%- if messages is defined %}
+	<br>
+	<ul>
+{%- for message in messages %}
+		<li>{{ message }}</li>
+{%- endfor %}
+	</ul>
+{%- endif %}
+{%- endblock %}
