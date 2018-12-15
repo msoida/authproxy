@@ -13,6 +13,11 @@ class User(UserMixin):
     session_token = session_token
     apikey = api_key
 
+    def get_or_none(should_return):
+        if should_return:
+            return User()
+        return None
+
     def verify_password(self, password):
         if self.password is None:
             return False
