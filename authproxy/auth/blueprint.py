@@ -3,7 +3,6 @@ from flask import (Blueprint, render_template, make_response,
 from flask_login import (LoginManager, AnonymousUserMixin,
                          login_user, logout_user, login_required,
                          current_user)
-from passlib.pwd import genword
 from webargs import fields, missing
 from webargs.flaskparser import parser, use_kwargs
 
@@ -47,7 +46,7 @@ def load_user_from_request(request):
 
 
 login_args = {
-    'next': fields.Str(),
+    'next': fields.Str(missing=None),
     'username': fields.Str(missing=''),
     'password': fields.Str(missing=''),
     'remember': fields.Boolean(missing=False),
@@ -57,7 +56,7 @@ login_args = {
 @auth.route('/login/', methods=['GET', 'POST'])
 @use_kwargs(login_args)
 def login(next, username, password, remember):
-    if next is missing:
+    if next is None:
         next = url_for('frontend.index')
     if request.method == 'POST':
         user = User.get_or_none(User.username == username)
@@ -75,16 +74,6 @@ def login(next, username, password, remember):
 def logout():
     logout_user()
     flash(logout_message)
-    return redirect(url_for('frontend.index'))
-
-
-# @auth.route('/create-api-key/')
-@login_required
-def create_api_key():
-    user = current_user
-    user.apikey = genword(length=25)
-    # user.save()
-    flash('API key created')
     return redirect(url_for('frontend.index'))
 
 
