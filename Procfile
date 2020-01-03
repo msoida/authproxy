@@ -1,1 +1,1 @@
-web: gunicorn authproxy.webapp --log-file -
+web: gunicorn authproxy.webapp:app --log-file -
