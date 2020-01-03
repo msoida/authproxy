@@ -12,7 +12,7 @@ from .frontend import frontend
 # ----------------   VARIABLES   --------------- #
 
 
-setlocale(LC_ALL, ('pl_PL', 'UTF-8'))
+#setlocale(LC_ALL, ('pl_PL', 'UTF-8'))
 tz = timezone('Europe/Warsaw')
 
 app = Flask(__name__)
